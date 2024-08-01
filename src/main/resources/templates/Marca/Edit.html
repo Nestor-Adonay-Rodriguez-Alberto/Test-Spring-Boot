@@ -1,0 +1,32 @@
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="/layouts/_mainLayout">
+
+<div layout:fragment="content">
+    <h1>Editar Marca</h1>
+
+
+    <form th:action="@{/Marca/save}" th:object="${marcaNARA}" method="post">
+        <input type="hidden" th:field="*{id}">
+
+        <!-- Atributo Nombre -->
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="NombreNARA">Nombre</label>
+                    <input type="text" class="form-control" th:field="*{NombreNARA}" id="NombreNARA" placeholder="Escriba el nombre del grupo" required>
+                </div>
+            </div>
+        </div>
+
+
+
+        <hr>
+
+        <!-- BOTONES -->
+        <button type="submit" class="btn btn-primary">Guardar</button> |
+        <a th:href="@{/Marca}">Regresar</a>
+
+    </form>
+</div>
