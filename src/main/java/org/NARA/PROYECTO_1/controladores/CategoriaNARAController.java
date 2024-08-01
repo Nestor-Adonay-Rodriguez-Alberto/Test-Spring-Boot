@@ -1,8 +1,8 @@
 package org.NARA.PROYECTO_1.controladores;
 
+import org.NARA.PROYECTO_1.modelos.CategoriaNARA;
 import org.NARA.PROYECTO_1.modelos.MarcaNARA;
-import org.NARA.PROYECTO_1.servicios.Implementaciones.MarcaNARAService;
-import org.NARA.PROYECTO_1.servicios.Interfaces.IMarcaNARAService;
+import org.NARA.PROYECTO_1.servicios.Interfaces.ICategoriaNARAService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -19,12 +19,11 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 @Controller
-@RequestMapping("/Marca")
-public class MarcaNARAController
+@RequestMapping("/Categoria")
+public class CategoriaNARAController
 {
     @Autowired
-    private IMarcaNARAService marcaNARAService;
-
+    private ICategoriaNARAService categoriaNARAService;
 
     // Metodo Para Mostrar Todos Los Registros:
     @GetMapping
@@ -33,10 +32,10 @@ public class MarcaNARAController
         int pageSize = size.orElse(5); // tamaño de la página, se asigna 5
         Pageable pageable = PageRequest.of(currentPage, pageSize);
 
-        Page<MarcaNARA> Listado_Marcas = marcaNARAService.buscarTodosPaginados(pageable);
-        model.addAttribute("Listado_Marcas", Listado_Marcas);
+        Page<CategoriaNARA> Listado_Categorias = categoriaNARAService.buscarTodosPaginados(pageable);
+        model.addAttribute("Listado_Categorias", Listado_Categorias);
 
-        int totalPages = Listado_Marcas.getTotalPages();
+        int totalPages = Listado_Categorias.getTotalPages();
 
         if (totalPages > 0)
         {
@@ -47,65 +46,61 @@ public class MarcaNARAController
             model.addAttribute("pageNumbers", pageNumbers);
         }
 
-        return "Marca/Index";
+        return "Categoria/Index";
     }
-
-
 
     // Metodo Crear Vista
     @GetMapping("/Create")
-    public String Create(MarcaNARA marcaNARA){
-        return "Marca/Create";
+    public String Create(CategoriaNARA categoriaNARA){
+        return "Categoria/Create";
     }
 
     // Metodo Guarda El Objeto En La DB:
     @PostMapping("/save")
-    public String save(MarcaNARA marcaNARA, BindingResult result, Model model, RedirectAttributes attributes){
+    public String save(CategoriaNARA categoriaNARA, BindingResult result, Model model, RedirectAttributes attributes){
         if(result.hasErrors()){
-            model.addAttribute(marcaNARA);
+            model.addAttribute(categoriaNARA);
             attributes.addFlashAttribute("error", "No se pudo guardar debido a un error.");
-            return "Marca/Create";
+            return "Categoria/Create";
         }
 
-        marcaNARAService.crearOEditar(marcaNARA);
-        attributes.addFlashAttribute("msg", "Marca creada correctamente");
-        return "redirect:/Marca";
+        categoriaNARAService.crearOEditar(categoriaNARA);
+        attributes.addFlashAttribute("msg", "Categoria Creada correctamente");
+        return "redirect:/Categoria";
     }
-
 
     // Nos Manda A La Vista Un Registro Encontrado:
     @GetMapping("/Details/{id}")
     public String details(@PathVariable("id") Integer id, Model model){
-        MarcaNARA marcaNARA = marcaNARAService.buscarPorId(id).get();
-        model.addAttribute("marcaNARA", marcaNARA);
-        return "Marca/Details";
+        CategoriaNARA categoriaNARA = categoriaNARAService.buscarPorId(id).get();
+        model.addAttribute("categoriaNARA", categoriaNARA);
+        return "Categoria/Details";
     }
 
 
     // Nos Manda A La Vista Editar Con Un Registro Encontrado
     @GetMapping("/Edit/{id}")
     public String edit(@PathVariable("id") Integer id, Model model){
-        MarcaNARA marcaNARA = marcaNARAService.buscarPorId(id).get();
-        model.addAttribute("marcaNARA", marcaNARA);
-        return "Marca/Edit";
+        CategoriaNARA categoriaNARA = categoriaNARAService.buscarPorId(id).get();
+        model.addAttribute("categoriaNARA", categoriaNARA);
+        return "Categoria/Edit";
     }
 
     // Nos Manda A La Vista Eliminar Con Un Registro Encontrado
     @GetMapping("/Remove/{id}")
     public String remove(@PathVariable("id") Integer id, Model model){
-        MarcaNARA marcaNARA = marcaNARAService.buscarPorId(id).get();
-        model.addAttribute("marcaNARA", marcaNARA);
-        return "Marca/Delete";
+        CategoriaNARA categoriaNARA = categoriaNARAService.buscarPorId(id).get();
+        model.addAttribute("categoriaNARA", categoriaNARA);
+        return "Categoria/Delete";
     }
 
     // Busca El Registro Y Lo Elimina De La DB:
     @PostMapping("/Delete")
-    public String delete(MarcaNARA marcaNARA, RedirectAttributes attributes){
-        marcaNARAService.eliminarPorId(marcaNARA.getId());
-        attributes.addFlashAttribute("msg", "Marca Eliminada correctamente");
-        return "redirect:/Marca";
+    public String delete(CategoriaNARA categoriaNARA, RedirectAttributes attributes){
+        categoriaNARAService.eliminarPorId(categoriaNARA.getId());
+        attributes.addFlashAttribute("msg", "Categoria Eliminada correctamente");
+        return "redirect:/Categoria";
     }
-
 
 
 }

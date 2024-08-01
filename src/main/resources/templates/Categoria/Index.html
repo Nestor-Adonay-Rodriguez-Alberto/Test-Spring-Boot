@@ -28,24 +28,25 @@
     </div>
 
 
-    <h1>Listado de Marcas</h1>
-    <a th:href="@{/Marca/Create}" class="btn btn-outline-primary">Nueva Marca</a>
+    <h1>Listado de Categorias</h1>
+    <a th:href="@{/Categoria/Create}" class="btn btn-outline-primary">Nueva Categoria</a>
     <table class="table table-striped">
         <thead>
         <tr>
             <th>ID</th>
             <th>Nombre</th>
-
+            <th>Descripción</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="item : ${Listado_Marcas}">
+        <tr th:each="item : ${Listado_Categorias}">
             <td th:text="${item.id}"></td>
             <td th:text="${item.NombreNARA}"></td>
+            <td th:text="${item.DescripcionNARA}"></td>
             <td>
-                <a th:href="@{/Marca/Details/{id} (id = ${item.id}) }" class="btn btn-outline-secondary">Detalles</a> |
-                <a th:href="@{/Marca/Edit/{id} (id = ${item.id}) }" class="btn btn-outline-info">Editar</a> |
-                <a th:href="@{/Marca/Remove/{id} (id = ${item.id}) }" class="btn btn-outline-danger">Eliminar</a>
+                <a th:href="@{/Categoria/Details/{id} (id = ${item.id}) }" class="btn btn-outline-secondary">Detalles</a> |
+                <a th:href="@{/Categoria/Edit/{id} (id = ${item.id}) }" class="btn btn-outline-info">Editar</a> |
+                <a th:href="@{/Categoria/Remove/{id} (id = ${item.id}) }" class="btn btn-outline-danger">Eliminar</a>
             </td>
         </tr>
         </tbody>
@@ -54,7 +55,7 @@
     <nav aria-label="Page navigation example">
         <ul class="pagination">
             <li class="page-item" th:each="pageNumber : ${pageNumbers}">
-                <a class="page-link" th:href="@{|/Marca?page=${pageNumber}|}" th:text="${pageNumber}"></a>
+                <a class="page-link" th:href="@{|/Categoria?page=${pageNumber}|}" th:text="${pageNumber}"></a>
             </li>
         </ul>
     </nav>
