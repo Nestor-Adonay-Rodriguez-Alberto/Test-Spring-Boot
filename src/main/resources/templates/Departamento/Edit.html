@@ -1,0 +1,53 @@
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="/layouts/_mainLayout">
+
+<div layout:fragment="content">
+    <h1>Editar Departamento</h1>
+
+
+    <form th:action="@{/Departamentos/save}" th:object="${departamentoTrabajoNARA}" method="post">
+        <input type="hidden" th:field="*{id}">
+
+        <!-- Atributo Nombre -->
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="NombreNARA">Nombre</label>
+                    <input type="text" class="form-control" th:field="*{NombreNARA}" id="NombreNARA" placeholder="Nombre del departamento" required>
+                </div>
+            </div>
+        </div>
+
+        <!-- Atributo Telefono -->
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="TelefonoNARA">Telefono</label>
+                    <input type="text" class="form-control" th:field="*{TelefonoNARA}" id="TelefonoNARA" placeholder="Escriba el Telefono del Departamento" required>
+                </div>
+            </div>
+        </div>
+
+        <!-- Atributo Jefe -->
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="JefeNARA">Jefe</label>
+                    <input type="text" class="form-control" th:field="*{JefeNARA}" id="JefeNARA" placeholder="Escriba el nombre del jefe del departamento" required>
+                </div>
+            </div>
+        </div>
+
+
+
+
+        <hr>
+
+        <!-- BOTONES -->
+        <button type="submit" class="btn btn-primary">Guardar</button> |
+        <a th:href="@{/Departamentos}">Regresar</a>
+
+    </form>
+</div>
